@@ -1,0 +1,28 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'signing'
+
+sourceCompatibility = 1.7
+version = '0.1'
+
+repositories{
+	mavenCentral();
+}
+
+dependencies{
+	compile 'ch.qos.logback:logback-classic:1.1.2'
+	testCompile 'junit:junit:4.11+'
+}
+
+project.ext['signing.keyId'] = "CB9DCE54"
+project.ext['signing.password'] = "555803IvAl"
+project.ext['signing.secretKeyRingFile'] = "C:/Users/Aleksei_Ivshin@epam.com/AppData/Roaming/gnupg/secring.gpg"
+
+task stuffZip (type: Zip) {
+    baseName = "stuff"
+    from "src/test/resources/data.jar"
+}
+
+signing {
+    sign stuffZip
+}
